@@ -1,0 +1,19 @@
+{
+    "name": "liquid-cats/g2fa",
+    "description": "Google 2FA",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "LiquidCats\\G2fa\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ilya Shabanov",
+            "email": "ishabanov@liquid-cats.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
