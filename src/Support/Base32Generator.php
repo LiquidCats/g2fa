@@ -28,9 +28,6 @@ readonly class Base32Generator implements Generator
      * @return string
      *
      * @throws RandomException
-     * @throws IncompatibleWithAuthenticatorException
-     * @throws InvalidCharactersException
-     * @throws SecretKeyTooShortException
      */
     public function secretKey(int $length = 16, #[SensitiveParameter] string $prefix = ''): string
     {
@@ -38,9 +35,7 @@ readonly class Base32Generator implements Generator
 
         $secret = str_replace('=', '', $secret);
 
-        $secret = $this->strPadBase32($secret, $length);
-
-        return $secret;
+        return $this->strPadBase32($secret, $length);
     }
 
     /**
