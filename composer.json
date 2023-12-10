@@ -2,10 +2,16 @@
     "name": "liquid-cats/g2fa",
     "description": "Google 2FA",
     "type": "library",
+    "version": "v0.0.1",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "LiquidCats\\G2fa\\": "src/"
+            "LiquidCats\\G2FA\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LiquidCats\\G2FA\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -15,5 +21,11 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+        "php": ">=8.2",
+        "paragonie/constant_time_encoding": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    }
 }
