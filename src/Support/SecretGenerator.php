@@ -15,7 +15,7 @@ use SensitiveParameter;
 use function random_int;
 use function str_replace;
 
-readonly class Base32Generator implements Generator
+readonly class SecretGenerator implements Generator
 {
     public function __construct()
     {
