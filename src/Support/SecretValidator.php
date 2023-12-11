@@ -35,25 +35,25 @@ readonly class SecretValidator implements Validator
     /**
      * Calculate char count bits.
      *
-     * @param string $b32
+     * @param string $secret
      *
      * @return int
      */
-    private function charCountBits(#[SensitiveParameter] string $b32): int
+    private function charCountBits(#[SensitiveParameter] string $secret): int
     {
-        return strlen($b32) * 8;
+        return strlen($secret) * 8;
     }
 
     /**
      * Check if the string length is power of two.
      *
-     * @param string $b32
+     * @param string $secret
      *
      * @return bool
      */
-    private function isCharCountNotAPowerOfTwo(#[SensitiveParameter] string $b32): bool
+    private function isCharCountNotAPowerOfTwo(#[SensitiveParameter] string $secret): bool
     {
-        return (strlen($b32) & (strlen($b32) - 1)) !== 0;
+        return (strlen($secret) & (strlen($secret) - 1)) !== 0;
     }
 
     /**
