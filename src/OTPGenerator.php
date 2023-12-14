@@ -12,6 +12,7 @@ use LiquidCats\G2FA\Exceptions\SecretKeyTooShortException;
 use LiquidCats\G2FA\Support\SecretValidator;
 use ParagonIE\ConstantTime\Base32;
 use SensitiveParameter;
+
 use function hash_hmac;
 use function ord;
 use function pack;
@@ -20,6 +21,7 @@ use function strlen;
 use function strtoupper;
 use function substr;
 use function unpack;
+
 use const STR_PAD_LEFT;
 
 readonly class OTPGenerator
@@ -77,7 +79,7 @@ readonly class OTPGenerator
         return Base32::decodeUpper($secret);
     }
 
-        /**
+    /**
      * Extracts the OTP from the SHA1 hash.
      *
      * @param string $hash
@@ -98,7 +100,7 @@ readonly class OTPGenerator
         );
     }
 
-        /**
+    /**
      * Generate the HMAC OTP.
      *
      * @param string $secret

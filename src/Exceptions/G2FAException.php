@@ -8,5 +8,4 @@ use Exception;
 
 class G2FAException extends Exception
 {
-
 }

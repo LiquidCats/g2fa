@@ -11,8 +11,6 @@ use LiquidCats\G2FA\Exceptions\InvalidCharactersException;
 use LiquidCats\G2FA\Exceptions\SecretKeyTooShortException;
 use LiquidCats\G2FA\OTPGenerator;
 use PHPUnit\Framework\TestCase;
-use PragmaRX\Google2FA\Google2FA;
-use PragmaRX\Google2FA\Tests\Constants;
 
 class OTPGeneratorTest extends TestCase
 {
@@ -85,7 +83,6 @@ class OTPGeneratorTest extends TestCase
         $this->expectException(IncompatibleWithAuthenticatorException::class);
         $this->totpGenerator->generate('ADUMJO5634NPDEK', 123456);
     }
-
 
     /**
      * @return void

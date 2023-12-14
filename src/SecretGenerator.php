@@ -13,9 +13,9 @@ use LiquidCats\G2FA\Support\SecretValidator;
 use ParagonIE\ConstantTime\Base32;
 use Random\RandomException;
 use SensitiveParameter;
+
 use function random_int;
 use function str_replace;
-use function var_dump;
 
 readonly class SecretGenerator
 {
@@ -55,7 +55,6 @@ readonly class SecretGenerator
      *
      * @return string
      * @throws RandomException
-     *
      */
     private function strPadBase32(#[SensitiveParameter] string $string, int $length): string
     {

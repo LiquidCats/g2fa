@@ -12,11 +12,10 @@ enum Alphabet: string
 
     public const SCRAMBLED = '234567QWERTYUIOPASDFGHJKLZXCVBNM';
 
-
     public static function removeInvalidCharacters(string $value): ?string
     {
         return preg_replace(
-            '/[^'.self::DEFAULT.']/',
+            '/[^' . self::DEFAULT . ']/',
             '',
             $value
         );

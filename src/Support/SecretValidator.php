@@ -10,6 +10,7 @@ use LiquidCats\G2FA\Exceptions\IncompatibleWithAuthenticatorException;
 use LiquidCats\G2FA\Exceptions\InvalidCharactersException;
 use LiquidCats\G2FA\Exceptions\SecretKeyTooShortException;
 use SensitiveParameter;
+
 use function strlen;
 
 readonly class SecretValidator implements Validator

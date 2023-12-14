@@ -18,10 +18,9 @@ readonly class TOTPVerificator
 {
     public function __construct(
         private OTPGenerator $generator = new OTPGenerator(),
-        public int           $keyRegeneration = 30,
-        public int           $window = 1,
-    )
-    {
+        public int $keyRegeneration = 30,
+        public int $window = 1,
+    ) {
     }
 
     /**
@@ -42,11 +41,10 @@ readonly class TOTPVerificator
     public function verify(
         #[SensitiveParameter] string $key,
         #[SensitiveParameter] string $secret,
-        ?int                         $timestamp = null,
-        ?int                         $oldTimestamp = null
-    ): bool|int
-    {
-        $timestamp = $timestamp ?? $this->getTimestamp();
+        ?int $timestamp = null,
+        ?int $oldTimestamp = null
+    ): bool|int {
+        $timestamp ??= $this->getTimestamp();
         $startingTimestamp = $this->makeStartingTimestamp($timestamp, $oldTimestamp);
 
         for (;
@@ -63,7 +61,6 @@ readonly class TOTPVerificator
 
         return false;
     }
-
 
     /**
      * Make a window based starting timestamp.
