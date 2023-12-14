@@ -8,6 +8,5 @@ use SensitiveParameter;
 
 interface Validator
 {
-
     public function validate(#[SensitiveParameter]string $secret);
 }
