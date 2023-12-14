@@ -1,6 +1,8 @@
 # PHP Google 2FA and TOTP
 
-This repository contains three PHP classes designed for generating and verifying Time-Based One-Time Passwords (TOTP) according to the RFC 6238 standard. These classes are part of the LiquidCats\G2FA namespace and offer functionality for secret key generation, TOTP generation, and TOTP verification.
+This repository was inspired by https://github.com/antonioribeiro/google2fa
+
+It contains three PHP classes designed for generating and verifying Time-Based One-Time Passwords (TOTP) according to the RFC 6238 standard. These classes are part of the LiquidCats\G2FA namespace and offer functionality for secret key generation, TOTP generation, and TOTP verification.
 
 
 ## Installation
