@@ -14,14 +14,11 @@ use PHPUnit\Framework\TestCase;
 
 class OTPGeneratorTest extends TestCase
 {
-    private Validator $validator;
     private OTPGenerator $totpGenerator;
 
     protected function setUp(): void
     {
-        $this->validator = $this->createMock(Validator::class);
-
-        $this->totpGenerator = new OTPGenerator($this->validator, Algorithm::SHA512);
+        $this->totpGenerator = new OTPGenerator(algorithm: Algorithm::SHA512);
     }
 
     /**
