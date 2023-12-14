@@ -324,3 +324,5 @@ fabric.properties
 
 
 /vendor/
+*.cache
+.idea/

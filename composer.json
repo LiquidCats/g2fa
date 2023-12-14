@@ -5,7 +5,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "LiquidCats\\G2fa\\": "src/"
+            "LiquidCats\\G2FA\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LiquidCats\\G2FA\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -15,5 +20,17 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.2",
+        "paragonie/constant_time_encoding": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6",
+        "friendsofphp/php-cs-fixer": "~v3.41"
+    },
+    "scripts": {
+        "test": "@php vendor/bin/phpunit ./tests",
+        "fix": "@php vendor/bin/php-cs-fixer fix"
+    }
 }
