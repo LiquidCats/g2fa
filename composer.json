@@ -2,7 +2,6 @@
     "name": "liquid-cats/g2fa",
     "description": "Google 2FA",
     "type": "library",
-    "version": "v0.0.1",
     "license": "MIT",
     "autoload": {
         "psr-4": {
