@@ -109,7 +109,7 @@ readonly class SecretKey
     }
 
     /**
-     * @param int $length
+     * @param int $bytes
      *
      * @return static
      * @throws IncompatibleWithAuthenticatorException
@@ -117,9 +117,10 @@ readonly class SecretKey
      * @throws RandomException
      * @throws SecretKeyTooShortException
      */
-    public static function generate(int $length = 16): static
+    public static function generate(int $bytes = 10): static
     {
-        $key = Base32::decodeUpper(random_bytes($length));
+        $key = Base32::encodeUpper(random_bytes($bytes));
+        $key = Alphabet::removeInvalidCharacters($key);
 
         return new static($key);
     }
