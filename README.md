@@ -1,9 +1,7 @@
 # PHP Google 2FA and TOTP
 
 This repository was inspired by https://github.com/antonioribeiro/google2fa
-
-It contains three PHP classes designed for generating and verifying Time-Based One-Time Passwords (TOTP) according to the RFC 6238 standard. These classes are part of the LiquidCats\G2FA namespace and offer functionality for secret key generation, TOTP generation, and TOTP verification.
-
+This library provides PHP classes for generating and verifying Time-Based One-Time Passwords (TOTP) as per the G2FA (Google Two Factor Authentication) standards. It includes TOTP and SecretKey classes designed to work together to offer a robust solution for two-factor authentication.
 
 ## Installation
 
@@ -11,68 +9,60 @@ It contains three PHP classes designed for generating and verifying Time-Based O
 composer require liquid-cats/g2fa 
 ```
 
-## Usage
+## 1. TOTP
+This class is responsible for generating and verifying TOTPs based on a secret key and time.
 
-### SecretGenerator
-The SecretGenerator class is responsible for generating a base32-encoded secret key, which is used in the TOTP process.
+### Features
 
-##### Features:
-
-Generates a random secret key.
-Validates the secret key for compatibility and character set.
-Usage:
+Generates TOTPs for a given timestamp.
+Verifies TOTPs against the current or provided timestamp.
+Customizable algorithm, length, epoch, and period.
+Usage
 
 ```php
-use LiquidCats\G2FA\SecretGenerator;
+Copy code
+use LiquidCats\G2FA\TOTP;
+use LiquidCats\G2FA\Enums\Algorithm;
+use LiquidCats\G2FA\ValueObjects\SecretKey;
 
-$secretGenerator = new SecretGenerator();
-$secret = $secretGenerator->secretKey(16); // Generate a 16-character secret key
+$totp = new TOTP(Algorithm::SHA512, 6, 30, 1);
+$secretKey = new SecretKey('YOUR_SECRET_KEY');
+$otp = $totp->now($secretKey);
+
+// To verify OTP
+$isValid = $totp->verify($secretKey, $otp);
 ```
 
-### TOTPGenerator
-The TOTPGenerator class generates a TOTP using a secret key and a counter value, typically based on the current time.
+## 2. SecretKey
 
-##### Features:
+The SecretKey class is used to handle secret keys required for generating TOTPs.
 
-Generates a TOTP based on the provided secret and counter.
-Supports different hashing algorithms like SHA512.
-Usage:
+### Features
 
-```php
-use LiquidCats\G2FA\OTPGenerator;
-use LiquidCats\G2FA\Enums\Algorithm;
-use LiquidCats\G2FA\Support\SecretValidator;
+Validates secret keys for format and size.
+Decodes secret keys from Base32 encoding.
+Static method for generating new secret keys.
 
-$validator = new SecretValidator();
-$totpGenerator = new OTPGenerator($validator, Algorithm::SHA512, oneTimePasswordLength: 7);
-$totp = $totpGenerator->generate($secret, $counter); // will generate 7 digit one time password
-```
-
-### TOTPVerificator
-The TOTPVerificator class verifies a given TOTP against the expected value, based on the secret key and the current time.
-
-##### Features:
-
-Verifies user inputted TOTP.
-Considers a time window for TOTP validation.
-Usage:
+### Usage
 
 ```php
-use LiquidCats\G2FA\OTPGenerator;
-use LiquidCats\G2FA\Enums\Algorithm;
-use LiquidCats\G2FA\Support\SecretValidator;
-use LiquidCats\G2FA\TOTPVerificator;
+Copy code
+use LiquidCats\G2FA\ValueObjects\SecretKey;
 
-$validator = new SecretValidator();
-$totpGenerator = new OTPGenerator($validator, Algorithm::SHA512, oneTimePasswordLength: 7);
-$verificator = new TOTPVerificator(keyRegeneration: 30, window: 1);
-$isValid = $verificator->verify($userInputTOTP, $secret);
+// Creating a SecretKey
+$secretKey = new SecretKey('YOUR_SECRET_KEY');
+
+// Decoding a SecretKey
+$decodedKey = $secretKey->decode();
+
+// Generating a new SecretKey
+$newSecretKey = SecretKey::generate();
 ```
 
 ## Contributing
 
-Contributions to improve these classes are welcome. Please submit pull requests or open issues to propose changes or report bugs.
+I welcome contributions and improvements to this library. Please submit pull requests or open issues for any bugs, feature requests, or enhancements.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is open-sourced under the MIT License. See the LICENSE file for more details.

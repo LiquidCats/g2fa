@@ -2,36 +2,40 @@
 
 declare(strict_types=1);
 
-namespace LiquidCats\G2FA\Support;
+namespace LiquidCats\G2FA\ValueObjects;
 
-use LiquidCats\G2FA\Contracts\Support\Validator;
 use LiquidCats\G2FA\Enums\Alphabet;
 use LiquidCats\G2FA\Exceptions\IncompatibleWithAuthenticatorException;
 use LiquidCats\G2FA\Exceptions\InvalidCharactersException;
 use LiquidCats\G2FA\Exceptions\SecretKeyTooShortException;
+use ParagonIE\ConstantTime\Base32;
+use Random\RandomException;
 use SensitiveParameter;
 
+use function random_bytes;
 use function strlen;
 
-readonly class SecretValidator implements Validator
+readonly class SecretKey
 {
     /**
-     * @param string $secret
-     *
-     * @return void
+     * @param string $value
      *
      * @throws IncompatibleWithAuthenticatorException
      * @throws InvalidCharactersException
      * @throws SecretKeyTooShortException
      */
-    public function validate(#[SensitiveParameter] string $secret): void
+    public function __construct(#[SensitiveParameter] public string $value)
     {
-        $this->checkForValidCharacters($secret);
-
-        $this->checkGoogleAuthenticatorCompatibility($secret);
-
-        $this->checkIsBigEnough($secret);
+        $this->checkIsBigEnough($this->value);
+        $this->checkForValidCharacters($this->value);
+        $this->checkGoogleAuthenticatorCompatibility($this->value);
     }
+
+    public function decode(): string
+    {
+        return Base32::decodeUpper($this->value);
+    }
+
 
     /**
      * Calculate char count bits.
@@ -102,5 +106,21 @@ readonly class SecretValidator implements Validator
         if ($this->charCountBits($secret) < 128) {
             throw new SecretKeyTooShortException();
         }
+    }
+
+    /**
+     * @param int $length
+     *
+     * @return static
+     * @throws IncompatibleWithAuthenticatorException
+     * @throws InvalidCharactersException
+     * @throws RandomException
+     * @throws SecretKeyTooShortException
+     */
+    public static function generate(int $length = 16): static
+    {
+        $key = Base32::decodeUpper(random_bytes($length));
+
+        return new static($key);
     }
 }

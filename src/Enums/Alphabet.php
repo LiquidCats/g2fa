@@ -10,8 +10,6 @@ enum Alphabet: string
 {
     public const DEFAULT = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
 
-    public const SCRAMBLED = '234567QWERTYUIOPASDFGHJKLZXCVBNM';
-
     public static function removeInvalidCharacters(string $value): ?string
     {
         return preg_replace(
