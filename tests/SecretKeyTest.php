@@ -10,6 +10,8 @@ use LiquidCats\G2FA\ValueObjects\SecretKey;
 use LiquidCats\G2FA\Exceptions\IncompatibleWithAuthenticatorException;
 use LiquidCats\G2FA\Exceptions\InvalidCharactersException;
 use LiquidCats\G2FA\Exceptions\SecretKeyTooShortException;
+use Random\RandomException;
+use function strlen;
 
 class SecretKeyTest extends TestCase
 {
@@ -25,6 +27,25 @@ class SecretKeyTest extends TestCase
         $validSecret = 'ADUMJO5634NPDEKW';
         $secretKey = new SecretKey($validSecret);
         $this->assertInstanceOf(SecretKey::class, $secretKey);
+    }
+
+    /**
+     * @return void
+     *
+     * @throws IncompatibleWithAuthenticatorException
+     * @throws InvalidCharactersException
+     * @throws SecretKeyTooShortException
+     * @throws RandomException
+     */
+    public function testCanGenerateSecretKey(): void
+    {
+        $key = SecretKey::generate()->value;
+
+        $this->assertEquals(16, strlen($key));
+
+        $key = SecretKey::generate(20)->value;
+
+        $this->assertEquals(32, strlen($key));
     }
 
     /**
